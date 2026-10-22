@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:;"
+    />
+    <title>Arka Plan Kaldır ve Düzenle</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="uygulama">
+      <header class="baslik">
+        <div class="marka">
+          <span class="logo">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 17.5V6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <path
+                d="M4.6 16.2 9 11.8a1.6 1.6 0 0 1 2.2 0l1.6 1.6 1.4-1.4a1.6 1.6 0 0 1 2.2 0l2.9 2.9"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle cx="15.4" cy="8.6" r="1.5" fill="currentColor" />
+            </svg>
+          </span>
+          <div class="marka-yazi">
+            <strong>Arka Plan Kaldır</strong>
+            <span>ve Düzenle</span>
+          </div>
+        </div>
+
+        <div class="dosya-bilgi" id="dosyaBilgi" hidden>
+          <span class="dosya-ad" id="dosyaAd">—</span>
+          <span class="dosya-meta" id="dosyaMeta"></span>
+        </div>
+
+        <div class="pencere-dugmeleri">
+          <button class="pencere-dugme" id="btnKucult" title="Küçült" aria-label="Küçült">
+            <svg viewBox="0 0 12 12"><path d="M2.5 6h7" stroke="currentColor" stroke-width="1.2" /></svg>
+          </button>
+          <button class="pencere-dugme" id="btnBuyut" title="Büyüt" aria-label="Büyüt">
+            <svg viewBox="0 0 12 12"><rect x="2.6" y="2.6" width="6.8" height="6.8" rx="1" stroke="currentColor" stroke-width="1.2" fill="none" /></svg>
+          </button>
+          <button class="pencere-dugme kapat" id="btnKapat" title="Kapat" aria-label="Kapat">
+            <svg viewBox="0 0 12 12"><path d="M3.2 3.2l5.6 5.6M8.8 3.2 3.2 8.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" /></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="govde">
+        <section class="sahne" id="sahne">
+          <div class="bos-durum" id="bosDurum">
+            <div class="bos-kart" id="bosKart">
+              <div class="bos-ikon">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <rect x="6" y="10" width="52" height="44" rx="8" stroke="currentColor" stroke-width="2.4" />
+                  <circle cx="24" cy="26" r="5" stroke="currentColor" stroke-width="2.4" />
+                  <path d="M10 46l12-11a3 3 0 0 1 4 0l7 6 6-5a3 3 0 0 1 4 0l11 9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                  <path d="M46 6l6 6M52 6l-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                </svg>
+              </div>
+              <h1>Fotoğrafı buraya bırak</h1>
+              <p>Masaüstünden bir fotoğraf sürükle ya da seç. Arka planı hemen kaldırıp renk ekleyebilirsin.</p>
+              <button class="dugme birincil" id="btnSec">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h2l1.2-1.4h3.6L13.5 4h1A2.5 2.5 0 0 1 17 6.5v8A2.5 2.5 0 0 1 14.5 17h-9A2.5 2.5 0 0 1 3 14.5v-8Z" stroke="currentColor" stroke-width="1.5" /><circle cx="10" cy="10.5" r="3.2" stroke="currentColor" stroke-width="1.5" /></svg>
+                Fotoğraf seç
+              </button>
+              <span class="bos-ipucu">JPG · PNG · WEBP · BMP · GIF · TIFF</span>
+            </div>
+          </div>
+
+          <div class="tuval-alan" id="tuvalAlan" hidden>
+            <div class="tuval-kap" id="tuvalKap">
+              <div class="damali" id="damali"></div>
+              <canvas id="tuval"></canvas>
+            </div>
+          </div>
+
+          <div class="kaplama" id="kaplama" hidden>
+            <div class="kaplama-kart" id="kaplamaKart">
+              <div class="halka" id="halka"><span id="halkaYuzde"></span></div>
+              <div class="kaplama-yazi">
+                <div class="kaplama-metin" id="kaplamaMetin">Arka plan kaldırılıyor…</div>
+                <div class="kaplama-alt" id="kaplamaAlt">İlk açılışta yapay zekâ modeli hazırlanır.</div>
+                <div class="ilerleme" id="ilerleme" hidden><i id="ilerlemeCubuk"></i></div>
+              </div>
+              <div class="kaplama-hata" id="kaplamaHata" hidden>
+                <button class="dugme kucuk" id="btnTekrar">Tekrar dene</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel" id="panel">
+          <div class="panel-ic" id="panelIc">
+            <div class="bolum">
+              <div class="bolum-baslik">
+                <h2>Arka plan rengi</h2>
+                <span class="bolum-ipucu">Kaldırılan alana renk ekle</span>
+              </div>
+
+              <button class="seffaf-secim" id="seffafSecim" aria-pressed="true">
+                <span class="seffaf-ornek damali"></span>
+                <span class="seffaf-yazi">
+                  <strong>Şeffaf</strong>
+                  <small>Arka plansız PNG</small>
+                </span>
+                <span class="onay" aria-hidden="true">
+                  <svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </button>
+
+              <div class="palet" id="palet"></div>
+
+              <div class="ozel-renk">
+                <label class="renk-kutu" title="Renk seç">
+                  <input type="color" id="renkSecici" value="#7c5cff" />
+                  <span id="renkOrnek"></span>
+                </label>
+                <input class="renk-kod" id="renkKod" type="text" maxlength="7" value="#7C5CFF" spellcheck="false" aria-label="Renk kodu" />
+                <button class="dugme kucuk" id="renkUygula">Uygula</button>
+              </div>
+
+              <div class="son-renkler" id="sonRenkler" hidden>
+                <span class="kucuk-baslik">Son kullanılanlar</span>
+                <div class="son-renk-liste" id="sonRenkListe"></div>
+              </div>
+            </div>
+
+            <div class="ayrac"></div>
+
+            <div class="bolum">
+              <div class="bolum-baslik">
+                <h2>Görünüm</h2>
+              </div>
+              <div class="segment" id="gorunumSegment">
+                <button data-gorunum="sonuc" aria-pressed="true">Düzenlenmiş</button>
+                <button data-gorunum="orijinal" aria-pressed="false">Orijinal</button>
+              </div>
+              <p class="ipucu">Orijinal ile karşılaştırmak için geçiş yap.</p>
+            </div>
+          </div>
+
+          <div class="panel-alt">
+            <div class="segment" id="formatSegment">
+              <button data-format="png" aria-pressed="true">PNG · şeffaf</button>
+              <button data-format="jpeg" aria-pressed="false">JPEG</button>
+            </div>
+            <p class="ipucu" id="kaydetIpucu">Şeffaflık korunur, dosya kayıpsız olur.</p>
+            <button class="dugme birincil kaydet" id="btnKaydet" disabled>
+              <svg viewBox="0 0 20 20" fill="none"><path d="M10 3v9m0 0 3.4-3.4M10 12 6.6 8.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /><path d="M3.5 13.5v1.6A2 2 0 0 0 5.5 17h9a2 2 0 0 0 2-1.9v-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              Fotoğrafı kaydet
+            </button>
+            <button class="dugme sade" id="btnYeni">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h9A1.5 1.5 0 0 1 16 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 4 14.5v-9Z" stroke="currentColor" stroke-width="1.4" /><path d="M10 7.5v5M7.5 10h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
+              Başka fotoğraf aç
+            </button>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="durum-cubugu">
+        <span class="durum-sol" id="durumSol">Hazır</span>
+        <span class="durum-sag">
+          <span class="ipucu-kisa">Ctrl+S kaydet · Ctrl+O aç</span>
+          <span class="zoom" id="zoom" hidden>
+            <button id="zoomEksi" title="Uzaklaştır">−</button>
+            <button id="zoomSigdir" title="Ekrana sığdır">Sığdır</button>
+            <button id="zoomArtı" title="Yakınlaştır">+</button>
+          </span>
+        </span>
+      </footer>
+    </div>
+
+    <div class="bildirim" id="bildirim" hidden>
+      <div class="bildirim-ic">
+        <span class="bildirim-nokta"></span>
+        <div class="bildirim-yazi">
+          <strong id="bildirimBaslik"></strong>
+          <span id="bildirimAlt"></span>
+        </div>
+        <button class="dugme kucuk" id="bildirimEylem" hidden></button>
+      </div>
+    </div>
+
+    <script src="bgremove.bundle.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

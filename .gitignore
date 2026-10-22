@@ -1,0 +1,7 @@
+node_modules/
+models/
+dist/
+out/
+*.log
+Thumbs.db
+desktop.ini

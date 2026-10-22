@@ -1,0 +1,73 @@
+{
+  "name": "arka-plan-kaldir",
+  "productName": "Arka Plan Kaldır",
+  "version": "1.0.0",
+  "description": "Fotoğraflara sağ tıklayıp arka planı kaldır, renk ekle ve yeni fotoğraf olarak kaydet.",
+  "main": "main.js",
+  "private": true,
+  "author": "Arka Plan Kaldır",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "start": "electron .",
+    "bundle": "esbuild src/bgremove.js --bundle --format=iife --global-name=BR --platform=browser --target=chrome120 --outfile=renderer/bgremove.bundle.js --minify",
+    "ikon": "node tools/ikon-uret.mjs",
+    "kur": "node tools/kur.mjs",
+    "paket": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "@imgly/background-removal": "^1.7.0",
+    "electron": "45.0.0",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.28.2",
+    "onnxruntime-web": "1.21.0"
+  },
+  "build": {
+    "appId": "com.arkaplankaldir.uygulama",
+    "productName": "Arka Plan Kaldır",
+    "copyright": "Arka Plan Kaldır",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "lib/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "models",
+        "to": "models"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "executableName": "ArkaPlanKaldir",
+      "artifactName": "ArkaPlanKaldir-Kurulum-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Arka Plan Kaldır",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "uninstallDisplayName": "Arka Plan Kaldır",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh",
+      "runAfterFinish": true
+    }
+  }
+}
