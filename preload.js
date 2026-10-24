@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('kopru', {
   // pencere
   pencere: (islem) => ipcRenderer.invoke('ap:pencere', islem),
   pencereDurum: () => ipcRenderer.invoke('ap:pencere-durum'),
+  temaZemin: (renk) => ipcRenderer.send('ap:tema-zemin', renk),
 
   // dosyalar
   dosyaAc: () => ipcRenderer.invoke('ap:ac'),

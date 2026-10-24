@@ -11,7 +11,7 @@ Her şey bilgisayarda çalışır: fotoğraflar hiçbir sunucuya gönderilmez.
 
 ## Kurulum (tek tık)
 
-**`ArkaPlanKaldir-Kurulum-1.0.0.exe`** dosyasına çift tıkla. Hepsi bu:
+**`ArkaPlanKaldir-Kurulum-1.1.0.exe`** dosyasına çift tıkla. Hepsi bu:
 
 - yönetici izni istemez, bu kullanıcı için kurulur,
 - Node.js / internet **gerekmez** (yapay zekâ modeli kurulumun içinde),
@@ -75,6 +75,17 @@ Kısayollar: `Ctrl+S` kaydet · `Ctrl+O` fotoğraf aç · `Ctrl` + fare tekerle�
 yakınlaştır.
 
 Sürükle-bırak da çalışır: bir fotoğrafı pencerenin üzerine bırak.
+
+### Tema
+
+Pencerenin sağ üstündeki **tema düğmesi** ile dört görünüm arasında geçiş yapabilirsin:
+
+- **Koyu** (varsayılan)
+- **Açık**
+- **Gece Mavisi**
+- **Sıcak Kum**
+
+Seçim anında uygulanır ve hatırlanır; uygulamayı kapatıp açtığında son tema açılır.
 
 ---
 

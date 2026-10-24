@@ -253,6 +253,15 @@ ipcMain.handle('ap:pencere-durum', () => ({
   buyuk: pencere ? pencere.isMaximized() : false
 }));
 
+ipcMain.on('ap:tema-zemin', (_olay, renk) => {
+  if (!pencere || typeof renk !== 'string' || !/^#[0-9a-f]{6}$/i.test(renk)) return;
+  try {
+    pencere.setBackgroundColor(renk);
+  } catch {
+    /* yoksay */
+  }
+});
+
 ipcMain.handle('ap:ac', async () => {
   if (!pencere) return null;
   const sonuc = await dialog.showOpenDialog(pencere, {
@@ -350,6 +359,18 @@ ipcMain.on('ap:hazir', () => {
       if (process.env.AP_TEST_RENK) {
         await pencere.webContents.executeJavaScript(
           `document.querySelector('.palet button[data-renk="${process.env.AP_TEST_RENK}"]')?.click()`
+        );
+        await bekle(250);
+      }
+      if (process.env.AP_TEST_TEMA) {
+        await pencere.webContents.executeJavaScript(
+          `document.querySelector('.tema-sec[data-tema="${process.env.AP_TEST_TEMA}"]')?.click()`
+        );
+        await bekle(250);
+      }
+      if (process.env.AP_TEST_MENU) {
+        await pencere.webContents.executeJavaScript(
+          `document.getElementById('btnTema').click()`
         );
         await bekle(250);
       }
