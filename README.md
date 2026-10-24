@@ -138,24 +138,6 @@ build/installer.nsh     Kurulumda sağ tık menüsünü ekleyen NSIS betiği
 kur.bat                 Geliştirici kurulumunu başlatan dosya
 ```
 
----
-
-## GitHub'a yükleme
-
-Bu projeyi herkese açık paylaşacaksan:
-
-**Yükle:** `main.js`, `preload.js`, `renderer/`, `lib/`, `tools/`, `src/`, `assets/`,
-`build/`, `package.json`, `package-lock.json`, `kur.bat`, `README.md`, `.gitignore`, `LICENSE`.
-
-**Yükleme:** `node_modules/` (≈400 MB), `models/` (≈54 MB) ve `dist/` (kurulum çıktısı).
-`.gitignore` bunları zaten dışarıda bırakır.
-
-Kullanacak kişi için iki yol var:
-
-1. **En kolayı:** GitHub **Releases** bölümüne `dist\ArkaPlanKaldir-Kurulum-*.exe`
-   dosyasını ekle. İndirip çift tıklayan herkes kurar; Node.js gerekmez.
-2. **Kaynaktan:** Node.js kurup `npm install` + `kur.bat` çalıştırır.
-
 **Lisans:** Arka plan kaldırma için kullanılan
 [@imgly/background-removal](https://github.com/imgly/background-removal-js) kütüphanesi
 **AGPL-3.0** lisanslıdır. Bu yüzden projeyi açık kaynak yaparken **AGPL-3.0** ile
